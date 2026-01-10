@@ -1,0 +1,7 @@
+{
+  "name": "AI Location Summarizer",
+  "description": "An AI-powered banner that provides real-time summaries of a location by integrating information from weather, social media, and news sources.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
