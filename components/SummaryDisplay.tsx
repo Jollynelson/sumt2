@@ -1,5 +1,5 @@
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import type { Summary, Sentiment, LocationVibe, WeatherData, SocialTrends } from '../types';
 import ShareIcon from './icons/ShareIcon';
 import WeatherIcon from './icons/WeatherIcon';
@@ -54,7 +54,7 @@ const WeatherCard: React.FC<{ weather: WeatherData }> = ({ weather }) => (
 );
 
 const SocialRadar: React.FC<{ social: SocialTrends }> = ({ social }) => (
-  <div className="bg-gray-800/60 border border-blue-500/30 rounded-2xl p-6 relative overflow-hidden group">
+  <div className="bg-gray-800/60 border border-blue-500/30 rounded-2xl p-6 relative overflow-hidden group h-full">
     <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
        <SocialIcon />
     </div>
@@ -96,6 +96,72 @@ const SocialRadar: React.FC<{ social: SocialTrends }> = ({ social }) => (
     </div>
   </div>
 );
+
+const FeedbackSection: React.FC<{ location: string }> = ({ location }) => {
+  const [rating, setRating] = useState<'up' | 'down' | null>(null);
+  const [userGist, setUserGist] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In a real app, this would be sent to an API
+    console.log(`Feedback for ${location}: Rating: ${rating}, Gist: ${userGist}`);
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="mt-8 bg-purple-500/10 border border-purple-500/30 rounded-2xl p-6 text-center animate-fade-in">
+        <p className="text-purple-300 font-bold text-lg mb-1">Thanks for the gist! 🙏</p>
+        <p className="text-purple-400/70 text-sm">Your feedback helps AmeboAI learn the area better.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-8 bg-gray-800/60 border border-gray-700 rounded-2xl p-6 space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h4 className="text-white font-bold text-lg">Did we hit the nail on the head?</h4>
+          <p className="text-gray-400 text-sm">Rate the accuracy of this gist.</p>
+        </div>
+        <div className="flex gap-3">
+          <button 
+            onClick={() => setRating('up')}
+            className={`p-3 rounded-xl transition-all ${rating === 'up' ? 'bg-green-500 text-white shadow-lg shadow-green-500/20' : 'bg-gray-700 text-gray-400 hover:bg-gray-600'}`}
+          >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" /></svg>
+          </button>
+          <button 
+            onClick={() => setRating('down')}
+            className={`p-3 rounded-xl transition-all ${rating === 'down' ? 'bg-red-500 text-white shadow-lg shadow-red-500/20' : 'bg-gray-700 text-gray-400 hover:bg-gray-600'}`}
+          >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667v-5.43a2 2 0 00-1.106-1.79l-.05-.025A4 4 0 0011.057 2H5.64a2 2 0 00-1.962 1.608l-1.2 6A2 2 0 004.44 12H8v4a2 2 0 002 2 1 1 0 001-1v-.667a4 4 0 01.8-2.4l1.4-1.866a4 4 0 00.8-2.4z" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <label className="block text-gray-300 text-sm font-semibold uppercase tracking-widest">
+          Add your own gist about {location}
+        </label>
+        <textarea 
+          value={userGist}
+          onChange={(e) => setUserGist(e.target.value)}
+          placeholder="Omo, wait o! Something dey happen for this area wey AI never see..."
+          className="w-full bg-gray-900/50 border border-gray-700 rounded-xl p-4 text-gray-200 text-sm focus:ring-2 focus:ring-purple-500 outline-none min-h-[100px] resize-none transition-all placeholder-gray-600"
+        />
+        <button 
+          type="submit"
+          disabled={!rating && !userGist}
+          className="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Submit Feedback
+        </button>
+      </form>
+    </div>
+  );
+};
 
 const SummaryDisplay: React.FC<SummaryDisplayProps> = ({ summary, location }) => {
   const handleShare = useCallback((vibe: LocationVibe) => {
@@ -200,6 +266,8 @@ const SummaryDisplay: React.FC<SummaryDisplayProps> = ({ summary, location }) =>
           );
         })}
       </div>
+
+      <FeedbackSection location={location} />
 
       {/* Sources Section */}
       {summary.sources && summary.sources.length > 0 && (
