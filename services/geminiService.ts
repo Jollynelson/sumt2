@@ -1,107 +1,87 @@
 
 import { GoogleGenAI, Type } from '@google/genai';
-import type { Summary, LocationVibe, GroundingSource, WeatherData, SocialTrends } from '../types';
+import type { Summary, LocationVibe, GroundingSource, WeatherData, SocialTrends, RentersGuide, NewsArticle, DeepDive } from '../types';
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
-/**
- * We use gemini-2.5-flash because it supports both googleSearch and googleMaps tools simultaneously.
- */
 
 export const summarizeLocationData = async (
   location: string,
   latLng?: { latitude: number; longitude: number }
 ): Promise<Summary> => {
+  // Direct, high-speed prompt focusing on essential data extraction
   const prompt = `
-    You are "AmeboAI", the number one gossip in town. Your task is to give the REAL, unfiltered, dramatic gist about ${location}.
+    Analyze ${location}, Nigeria for a tenant.
+    Use Google Search for real-time data from the last 7 days.
+    Output ONLY valid JSON.
     
-    Use Google Search and Google Maps to find:
-    1. CURRENT WEATHER: Get real-time temperature (Celsius), condition, humidity (%), and wind speed (km/h).
-    2. SOCIAL MEDIA TRENDS: Find what is trending on Twitter/X, Instagram, or local forums about ${location}. Identify popular hashtags and the single most talked-about topic right now.
-    3. Security: Safety, crime reports, or general "area" reputation.
-    4. Infrastructure: Recent news about power, flooding, or network quality.
-    5. Vibes: Traffic, popular spots, and general "happenings".
+    Tasks:
+    1. Geographic: Verify location.
+    2. Rent: Current annual market rates.
+    3. Security: Specific safe vs unsafe streets/estates.
+    4. Power: List areas in Band A and Band B.
+    5. Infrastructure: Areas with floods, bad roads, good roads, and new projects.
+    6. News: 3 recent headlines.
+    7. Vibe: Witty Pidgin remark.
+    8. Social: Top tags, active time, platforms.
 
-    Format your response STRICTLY as a JSON object with this exact structure:
+    JSON Template:
     {
-      "weather": {
-        "temperature": 0,
-        "condition": "Condition string",
-        "humidity": 0,
-        "wind_speed": 0
+      "weather": { "temperature": 0, "condition": "string", "humidity": 0, "wind_speed": 0 },
+      "social": { "hashtags": [], "topDiscussion": "", "vibeScore": 8, "activeTime": "", "platforms": [] },
+      "latestNews": [{ "headline": "", "source": "", "url": "", "timeAgo": "" }],
+      "deepDive": {
+        "security": { "safeZones": [], "concernZones": [], "advisory": "" },
+        "power": { "bandA": [], "bandB": [], "gridStability": "" },
+        "infrastructure": { "floodProne": [], "badRoads": [], "goodRoads": [], "ongoingProjects": [] }
       },
-      "social": {
-        "hashtags": ["#tag1", "#tag2", "#tag3"],
-        "topDiscussion": "Dramatic summary of the hottest social media topic",
-        "vibeScore": 8
+      "rentersGuide": {
+        "areaType": "", "securityRating": "", "amenities": [], "greenFlags": [], "wittyRemark": "",
+        "schools": [{ "name": "", "rating": "", "proximity": "" }],
+        "transportation": { "modes": [], "frequency": "", "majorRoutes": [] },
+        "rentPrices": { "selfCon": "", "oneBedroom": "", "twoBedroom": "", "threeBedroomPlus": "" },
+        "livabilityNote": ""
       },
-      "vibes": [
-        {
-          "category": "Category Name",
-          "icon": "Emoji",
-          "mainInsight": { "title": "Pidgin Title", "description": "Gossip detail", "sentiment": "POSITIVE/NEGATIVE/NEUTRAL", "icon": "Emoji" },
-          "subInsight": { "text": "Nuance detail", "sentiment": "SENTIMENT" }
-        }
-      ]
+      "vibes": [{ "category": "", "icon": "", "mainInsight": { "title": "", "description": "", "sentiment": "NEUTRAL", "icon": "" } }]
     }
-
-    Be dramatic and use Nigerian Pidgin/slang for the vibes and social discussion! For weather, be accurate.
-    DO NOT include any Markdown formatting like \`\`\`json. Just the raw JSON string.
   `;
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3-flash-preview',
       contents: prompt,
       config: {
-        tools: [{ googleSearch: {} }, { googleMaps: {} }],
-        toolConfig: latLng ? {
-          retrievalConfig: {
-            latLng: latLng
-          }
-        } : undefined,
+        // Optimized for speed: Remove Maps tool (slow) and disable thinking (latency)
+        tools: [{ googleSearch: {} }],
+        thinkingConfig: { thinkingBudget: 0 }
       },
     });
 
     const text = response.text || "";
-    const jsonStr = text.replace(/```json/g, "").replace(/```/g, "").trim();
+    const startIndex = text.indexOf('{');
+    const endIndex = text.lastIndexOf('}');
     
-    let parsedVibes: LocationVibe[] = [];
-    let weather: WeatherData | undefined = undefined;
-    let social: SocialTrends | undefined = undefined;
-
-    try {
-        const parsed = JSON.parse(jsonStr);
-        parsedVibes = parsed.vibes || [];
-        weather = parsed.weather;
-        social = parsed.social;
-    } catch (e) {
-        console.error("Failed to parse JSON from Gemini response", text);
-        throw new Error("AmeboAI drink small stout, e talk no clear again. Try again!");
-    }
+    if (startIndex === -1 || endIndex === -1) throw new Error("Synthesis failed.");
+    const jsonStr = text.substring(startIndex, endIndex + 1);
+    const parsed = JSON.parse(jsonStr);
 
     const sources: GroundingSource[] = [];
     const chunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks || [];
-    
     chunks.forEach((chunk: any) => {
-      if (chunk.web) {
-        sources.push({ title: chunk.web.title || 'Web Source', url: chunk.web.uri });
-      } else if (chunk.maps) {
-        sources.push({ title: chunk.maps.title || 'Maps Location', url: chunk.maps.uri });
-      }
+      if (chunk.web) sources.push({ title: chunk.web.title || 'Source', url: chunk.web.uri });
     });
 
-    const uniqueSources = Array.from(new Map(sources.map(s => [s.url, s])).values());
-
     return {
-      vibes: parsedVibes,
-      sources: uniqueSources,
-      weather,
-      social
+      vibes: parsed.vibes || [],
+      sources: Array.from(new Map(sources.map(s => [s.url, s])).values()),
+      weather: parsed.weather,
+      social: parsed.social,
+      rentersGuide: parsed.rentersGuide,
+      latestNews: parsed.latestNews || [],
+      deepDive: parsed.deepDive
     };
 
   } catch (error) {
-    console.error("Error calling Gemini API:", error);
-    throw new Error("AmeboAI don go market, e never come back. Check your network or try again later.");
+    console.error("Gemini Error:", error);
+    throw new Error("Neighborhood intelligence network is busy. Abeg try again.");
   }
 };

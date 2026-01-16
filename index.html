@@ -4,8 +4,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Location Summarizer</title>
+    <title>BETA TENANT | Neighborhood Intelligence</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes spin-reverse {
+        from { transform: rotate(360deg); }
+        to { transform: rotate(0deg); }
+      }
+      .animate-spin-reverse {
+        animation: spin-reverse 1.5s linear infinite;
+      }
+    </style>
   <script type="importmap">
 {
   "imports": {
@@ -17,7 +26,7 @@
 }
 </script>
 </head>
-  <body class="bg-gray-900">
+  <body class="bg-[#F5F7FA]">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

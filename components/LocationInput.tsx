@@ -17,23 +17,26 @@ const LocationInput: React.FC<LocationInputProps> = ({ location, setLocation, on
 
   return (
     <div className="flex flex-col sm:flex-row items-center gap-4">
-      <div className="relative flex-grow w-full">
+      <div className="relative flex-grow w-full group">
+        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </div>
         <input
           type="text"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="e.g., New York, Tokyo, London"
-          className="w-full pl-5 pr-12 py-3 bg-gray-700/50 border border-gray-600 rounded-full focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all duration-300 placeholder-gray-500"
+          placeholder="Enter neighborhood (e.g. Lekki, Eket, Uyo...)"
+          className="w-full pl-14 pr-12 py-5 bg-slate-50 border border-slate-200 rounded-3xl focus:ring-4 focus:ring-blue-100 focus:bg-white focus:border-blue-400 outline-none transition-all duration-300 placeholder-slate-400 text-slate-800 font-bold"
           disabled={isLoading}
         />
       </div>
       <button
         onClick={onSummarize}
         disabled={isLoading || !location}
-        className="w-full sm:w-auto flex items-center justify-center px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full shadow-lg hover:shadow-purple-500/40 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100 disabled:shadow-none"
+        className="w-full sm:w-auto h-full px-10 py-5 bg-[#000066] text-white font-black uppercase tracking-widest rounded-3xl shadow-xl shadow-blue-900/20 hover:shadow-blue-900/40 hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none"
       >
-        {isLoading ? 'Analyzing...' : 'Summarize'}
+        {isLoading ? 'Verifying...' : 'Get Intel'}
       </button>
     </div>
   );

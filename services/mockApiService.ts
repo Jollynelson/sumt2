@@ -64,10 +64,10 @@ export const getMockNewsData = (location: string): Promise<NewsArticle[]> => {
                 reject(new LocationNotFoundError(pickRandom(errorMessages)));
             } else {
                 resolve([
-                    { headline: `${location} State government announces plan to fix major potholes on the expressway.`, source: 'Naija Tribune', url: '#' },
-                    { headline: `Afrobeat star to hold concert in ${location} this December.`, source: 'Pulse NG', url: '#' },
-                    { headline: `Local tech hub in ${location} secures international funding.`, source: 'TechCabal', url: '#' },
-                    { headline: `Heavy rainfall expected in ${location} this weekend, authorities warn of potential flooding.`, source: 'Channels News', url: '#' },
+                    { headline: `${location} State government announces plan to fix major potholes on the expressway.`, source: 'Naija Tribune', url: '#', timeAgo: '2 hours ago' },
+                    { headline: `Afrobeat star to hold concert in ${location} this December.`, source: 'Pulse NG', url: '#', timeAgo: '4 hours ago' },
+                    { headline: `Local tech hub in ${location} secures international funding.`, source: 'TechCabal', url: '#', timeAgo: '1 day ago' },
+                    { headline: `Heavy rainfall expected in ${location} this weekend, authorities warn of potential flooding.`, source: 'Channels News', url: '#', timeAgo: '2 days ago' },
                 ]);
             }
         }, 400);
