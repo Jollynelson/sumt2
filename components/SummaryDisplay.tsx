@@ -128,7 +128,7 @@ const PowerGrid: React.FC<{ power: DeepDive['power'] }> = ({ power }) => (
             </div>
         </div>
 
-        {/* Status Banner - Fixed Distortion here */}
+        {/* Status Banner */}
         <div className="mb-6 p-3 bg-white/5 border border-yellow-400/30 rounded-xl">
             <p className="text-[10px] font-bold text-yellow-400 leading-relaxed">
                {power.gridStability || 'Real-time grid stability data loading...'}
@@ -416,15 +416,16 @@ const FeedbackSection: React.FC<{ location: string }> = ({ location }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!feedback.rating) return;
+    if (!feedback.rating && !feedback.comment.trim()) return;
     setSubmitted(true);
+    // In a real app, this would be sent to a backend and used to ground future Gemini prompts
     console.log('Feedback submitted:', feedback);
   };
 
   if (submitted) return (
     <div className="mt-8 bg-emerald-50 border border-emerald-100 rounded-3xl p-8 text-center animate-fade-in shadow-sm">
       <p className="text-emerald-800 font-black text-xl mb-1">Intelligence Recorded! 🧠</p>
-      <p className="text-emerald-600 text-sm font-medium">Your contribution helps us build a better database.</p>
+      <p className="text-emerald-600 text-sm font-medium">Your contribution helps us build a better database for the next tenant.</p>
       <button 
         onClick={() => { setSubmitted(false); setFeedback({ rating: null, comment: '', location }); }}
         className="mt-4 text-emerald-700 font-bold text-xs uppercase tracking-widest hover:underline"
@@ -435,36 +436,55 @@ const FeedbackSection: React.FC<{ location: string }> = ({ location }) => {
   );
 
   return (
-    <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
-      <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-sm">
+      <form onSubmit={handleSubmit} className="space-y-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-left">
-            <h4 className="text-[#000066] font-black text-xl">Confirm the Gist?</h4>
-            <p className="text-slate-500 text-sm font-medium">Is this report for {location} accurate?</p>
+            <h4 className="text-[#000066] font-black text-2xl tracking-tighter uppercase">Neighborhood Intelligence Update</h4>
+            <p className="text-slate-500 text-sm font-medium">Verify the report for <span className="text-[#000066] font-black">{location}</span></p>
           </div>
           <div className="flex gap-3 sm:gap-4 w-full md:w-auto">
             <button 
               type="button"
               onClick={() => setFeedback(prev => ({ ...prev, rating: 'up' }))} 
-              className={`flex-1 md:flex-none flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 border-2 rounded-xl transition-all font-bold group ${feedback.rating === 'up' ? 'bg-[#000066] border-[#000066] text-white' : 'bg-white border-slate-200 text-slate-600 hover:border-[#000066]'}`}
+              className={`flex-1 md:flex-none flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-4 border-2 rounded-2xl transition-all font-black uppercase tracking-widest text-xs group ${feedback.rating === 'up' ? 'bg-[#000066] border-[#000066] text-white shadow-xl shadow-blue-900/20' : 'bg-white border-slate-100 text-slate-400 hover:border-[#000066] hover:text-[#000066]'}`}
             >
-              <span className={`text-xl`}>👍</span> Spot On
+              <span className={`text-xl`}>👍</span> Accurate
             </button>
             <button 
               type="button"
               onClick={() => setFeedback(prev => ({ ...prev, rating: 'down' }))} 
-              className={`flex-1 md:flex-none flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 border-2 rounded-xl transition-all font-bold group ${feedback.rating === 'down' ? 'bg-[#FF7043] border-[#FF7043] text-white' : 'bg-white border-slate-200 text-slate-600 hover:border-[#FF7043]'}`}
+              className={`flex-1 md:flex-none flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-4 border-2 rounded-2xl transition-all font-black uppercase tracking-widest text-xs group ${feedback.rating === 'down' ? 'bg-[#FF7043] border-[#FF7043] text-white shadow-xl shadow-orange-900/20' : 'bg-white border-slate-100 text-slate-400 hover:border-[#FF7043] hover:text-[#FF7043]'}`}
             >
-              <span className={`text-xl`}>👎</span> No O
+              <span className={`text-xl`}>👎</span> Incorrect
             </button>
           </div>
         </div>
+
+        <div className="space-y-3">
+          <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] block ml-1">Wetin you see for ground? (Your Suggestion)</label>
+          <div className="relative">
+            <textarea 
+              value={feedback.comment}
+              onChange={(e) => setFeedback(prev => ({ ...prev, comment: e.target.value }))}
+              placeholder="e.g. 'Actually, Band A for Lekki Phase 1 is now 22hrs' or 'Flooding at Admiralty Way is bad today'..."
+              className="w-full bg-slate-50 border border-slate-100 rounded-3xl p-6 text-sm font-bold focus:ring-4 focus:ring-blue-100 focus:bg-white outline-none transition-all placeholder-slate-300 min-h-[120px]"
+            />
+            <div className="absolute bottom-4 right-6 text-[10px] font-black text-slate-300">
+               {feedback.comment.length} / 500
+            </div>
+          </div>
+          <p className="text-[10px] text-slate-400 font-medium italic pl-1">
+            * Your report will be analyzed by the AI to update future intelligence reports.
+          </p>
+        </div>
+
         <button 
           type="submit"
-          disabled={!feedback.rating}
-          className="w-full py-4 bg-[#000066] text-white font-black uppercase tracking-widest rounded-xl shadow-lg hover:shadow-xl disabled:opacity-50 disabled:shadow-none transition-all transform active:scale-[0.98]"
+          disabled={!feedback.rating && !feedback.comment.trim()}
+          className="w-full py-5 bg-[#000066] text-white font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-blue-900/20 hover:shadow-blue-900/40 hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none transition-all transform active:scale-[0.98]"
         >
-          Submit Intelligence
+          Submit Community Intelligence
         </button>
       </form>
     </div>
@@ -484,7 +504,6 @@ const SummaryDisplay: React.FC<SummaryDisplayProps> = ({ summary, location }) =>
         <div className="lg:col-span-2 space-y-6">
             {summary.weather && <WeatherCard weather={summary.weather} />}
             {summary.latestNews && summary.latestNews.length > 0 && <NewsFeed news={summary.latestNews} />}
-            {/* Moved Renters Guide under Local Gist (NewsFeed) */}
             {summary.rentersGuide && <RentersGuideCard guide={summary.rentersGuide} />}
         </div>
         <div className="lg:col-span-1 h-full">

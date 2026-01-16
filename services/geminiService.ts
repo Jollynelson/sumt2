@@ -8,22 +8,26 @@ export const summarizeLocationData = async (
   location: string,
   latLng?: { latitude: number; longitude: number }
 ): Promise<Summary> => {
-  // Direct, high-speed prompt focusing on essential data extraction
+  // Direct, high-speed prompt focusing on essential data extraction.
+  // We explicitly mention 'COMMUNITY REPORTS' so that in a real system, 
+  // we would append actual user feedback to this prompt.
   const prompt = `
     Analyze ${location}, Nigeria for a tenant.
     Use Google Search for real-time data from the last 7 days.
-    Output ONLY valid JSON.
     
+    CRITICAL: Look for and prioritize "COMMUNITY REPORTS" or user-submitted updates regarding power bands, floods, or rent if they contradict general search results.
+
     Tasks:
     1. Geographic: Verify location.
     2. Rent: Current annual market rates.
     3. Security: Specific safe vs unsafe streets/estates.
-    4. Power: List areas in Band A and Band B.
+    4. Power: List areas in Band A and Band B (Check current NERC classifications).
     5. Infrastructure: Areas with floods, bad roads, good roads, and new projects.
     6. News: 3 recent headlines.
     7. Vibe: Witty Pidgin remark.
     8. Social: Top tags, active time, platforms.
 
+    Output ONLY valid JSON.
     JSON Template:
     {
       "weather": { "temperature": 0, "condition": "string", "humidity": 0, "wind_speed": 0 },
