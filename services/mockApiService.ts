@@ -1,3 +1,4 @@
+
 import type { WeatherData, TweetData, NewsArticle } from '../types';
 import { LocationNotFoundError } from '../types';
 
@@ -22,6 +23,7 @@ export const getMockWeatherData = (location: string): Promise<WeatherData> => {
           condition: 'Sunny with small cloud',
           humidity: 85,
           wind_speed: 10,
+          weatherTip: "Sun dey today o! If you dey comot, make sure you wear light cloth else you go over sweat. Carry umbrella if you no get car.",
         });
       }
     }, 300);
@@ -64,10 +66,10 @@ export const getMockNewsData = (location: string): Promise<NewsArticle[]> => {
                 reject(new LocationNotFoundError(pickRandom(errorMessages)));
             } else {
                 resolve([
-                    { headline: `${location} State government announces plan to fix major potholes on the expressway.`, source: 'Naija Tribune', url: '#', timeAgo: '2 hours ago' },
-                    { headline: `Afrobeat star to hold concert in ${location} this December.`, source: 'Pulse NG', url: '#', timeAgo: '4 hours ago' },
-                    { headline: `Local tech hub in ${location} secures international funding.`, source: 'TechCabal', url: '#', timeAgo: '1 day ago' },
-                    { headline: `Heavy rainfall expected in ${location} this weekend, authorities warn of potential flooding.`, source: 'Channels News', url: '#', timeAgo: '2 days ago' },
+                    { headline: `${location} State government announces plan to fix major potholes on the expressway.`, source: 'Naija Tribune', url: '#', timeAgo: '2 hours ago', category: 'POSITIVE' },
+                    { headline: `Afrobeat star to hold concert in ${location} this December.`, source: 'Pulse NG', url: '#', timeAgo: '4 hours ago', category: 'NOTABLE' },
+                    { headline: `Local tech hub in ${location} secures international funding.`, source: 'TechCabal', url: '#', timeAgo: '1 day ago', category: 'POSITIVE' },
+                    { headline: `Heavy rainfall expected in ${location} this weekend, authorities warn of potential flooding.`, source: 'Channels News', url: '#', timeAgo: '2 days ago', category: 'CRITICAL' },
                 ]);
             }
         }, 400);

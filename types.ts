@@ -4,6 +4,7 @@ export interface WeatherData {
   condition: string;
   humidity: number;
   wind_speed: number;
+  weatherTip: string; // Pidgin tip for the user
 }
 
 export interface SocialTrends {
@@ -45,6 +46,7 @@ export interface RentersGuide {
   securityRating: string; // e.g., "Safe", "Needs Caution"
   amenities: string[]; // General amenities
   greenFlags: string[]; // Positive attributes
+  redFlags: string[]; // Negative attributes/Deal-breakers
   wittyRemark: string; // Sarcastic/Funny comment about the area (e.g. flood)
   schools: {
     name: string;
@@ -64,6 +66,7 @@ export interface FeedbackSubmission {
   rating: 'up' | 'down' | null;
   comment: string;
   location: string;
+  report?: Summary;
 }
 
 export interface TweetData {
@@ -74,8 +77,9 @@ export interface TweetData {
 export interface NewsArticle {
   headline: string;
   source: string;
-  url: string; // If available, otherwise empty string
-  timeAgo: string; // e.g. "2 hours ago"
+  url: string; 
+  timeAgo: string;
+  category: 'CRITICAL' | 'POSITIVE' | 'NOTABLE';
 }
 
 export type Sentiment = 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL';
@@ -102,7 +106,17 @@ export interface LocationVibe {
   };
 }
 
+export interface GistAreaVibe {
+  day: string;
+  category: 'Infrastructure' | 'Safety' | 'Environment' | 'Cost of Living' | 'Transport' | 'Development' | 'Social Noise';
+  sentiment: 'Positive' | 'Neutral' | 'Negative';
+  title: string;
+  insight: string;
+  pro_tip: string;
+}
+
 export interface Summary {
+  gistAreaVibes?: GistAreaVibe[];
   vibes: LocationVibe[];
   sources: GroundingSource[];
   weather?: WeatherData;
@@ -110,6 +124,7 @@ export interface Summary {
   rentersGuide?: RentersGuide;
   latestNews?: NewsArticle[];
   deepDive?: DeepDive;
+  tweets?: TweetData[];
 }
 
 export class LocationNotFoundError extends Error {

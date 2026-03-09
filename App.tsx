@@ -5,6 +5,7 @@ import { summarizeLocationData } from './services/geminiService';
 import LocationInput from './components/LocationInput';
 import SummaryDisplay from './components/SummaryDisplay';
 import LoadingSpinner from './components/LoadingSpinner';
+import VoiceAssistant from './components/VoiceAssistant';
 
 const BetaTenantLogo: React.FC = () => (
   <div className="flex flex-col items-center">
@@ -43,25 +44,43 @@ const App: React.FC = () => {
     setSummary(null);
 
     try {
-      let latLng: { latitude: number; longitude: number } | undefined = undefined;
+      // 1. Fetch real-time tweets and Airtable updates (fast)
+      const [tweetsResponse, airtableUpdates] = await Promise.all([
+        fetch(`/api/tweets?location=${encodeURIComponent(location)}`)
+          .then(res => res.ok ? res.json() : [])
+          .catch(() => []),
+        fetch(`/api/neighborhood-updates?location=${encodeURIComponent(location)}`)
+          .then(res => res.ok ? res.json() : [])
+          .catch(() => [])
+      ]);
 
-      if ("geolocation" in navigator) {
-          try {
-              // Reduced timeout to 1.5s for faster responsiveness
-              const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-                  navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 1500 });
-              });
-              latLng = {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude
-              };
-          } catch (geoError) {
-              console.warn("Geolocation skipped/timed out, proceeding with text-only search.");
-          }
+      // 2. Pass tweets and Airtable updates to Gemini so it can incorporate the gist into the summary
+      const generatedSummary = await summarizeLocationData(location, tweetsResponse, airtableUpdates);
+
+      setSummary({
+        ...generatedSummary,
+        tweets: tweetsResponse
+      });
+
+      // Neighborhood Memory: Save key gist for future recall
+      try {
+        const locLower = location.toLowerCase();
+        const memoryKey = `beta_tenant_memory_${locLower.replace(/\s+/g, '_')}`;
+        const keyGist = [
+          ...(generatedSummary.latestNews?.slice(0, 2).map(n => n.headline) || []),
+          ...(generatedSummary.social?.hashtags?.slice(0, 2).map(h => `#${h}`) || []),
+          generatedSummary.rentersGuide?.securityRating ? `Security: ${generatedSummary.rentersGuide.securityRating}` : null
+        ].filter(Boolean);
+
+        if (keyGist.length > 0) {
+          localStorage.setItem(memoryKey, JSON.stringify({
+            gist: keyGist,
+            timestamp: Date.now()
+          }));
+        }
+      } catch (e) {
+        console.warn("Failed to save neighborhood memory", e);
       }
-
-      const generatedSummary = await summarizeLocationData(location, latLng);
-      setSummary(generatedSummary);
     } catch (e) {
       console.error(e);
       if (e instanceof Error) {
@@ -78,7 +97,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-[#F5F7FA] text-slate-800 font-sans flex items-center justify-center p-4">
       <div className="w-full max-w-7xl mx-auto">
         <div className="bg-white border border-slate-200 rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden">
-          <div className="p-8 space-y-8">
+          <div className="p-4 sm:p-8 space-y-8">
             <header className="text-center py-4 bg-[#F8FAFC] -mx-8 -mt-8 mb-8 border-b border-slate-100">
               <BetaTenantLogo />
               <p className="text-slate-500 mt-3 font-medium px-4">
@@ -86,12 +105,25 @@ const App: React.FC = () => {
               </p>
             </header>
 
-            <LocationInput
-              location={location}
-              setLocation={setLocation}
-              onSummarize={handleSummarize}
-              isLoading={isLoading}
-            />
+            <div className="flex flex-col lg:flex-row items-center gap-4">
+              <div className="flex-grow w-full">
+                <LocationInput
+                  location={location}
+                  setLocation={setLocation}
+                  onSummarize={handleSummarize}
+                  isLoading={isLoading}
+                />
+              </div>
+              <div className="flex-shrink-0">
+                <VoiceAssistant 
+                  location={location} 
+                  onLocationUpdate={(newLoc) => {
+                    setLocation(newLoc);
+                    handleSummarize();
+                  }}
+                />
+              </div>
+            </div>
 
             {error && (
               <div className="bg-red-50 border border-red-100 text-red-700 px-6 py-4 rounded-2xl text-center" role="alert">
@@ -107,7 +139,7 @@ const App: React.FC = () => {
             {!summary && !isLoading && !error && (
                 <div className="text-center text-slate-400 py-16 px-4 border-2 border-dashed border-slate-200 rounded-3xl">
                     <p className="text-5xl mb-4">📍</p>
-                    <p className="text-lg font-medium">Ready to explore? Enter a neighborhood to get the latest gist.</p>
+                    <p className="text-lg font-medium">Ready to explore? Enter a neighborhood or use Amebo Live to get the latest gist.</p>
                 </div>
             )}
           </div>
