@@ -77,7 +77,7 @@ const LocationInput: React.FC<LocationInputProps> = ({ location, setLocation, on
           }}
           onFocus={() => setShowSuggestions(true)}
           onKeyDown={handleKeyDown}
-          placeholder="Search for a location (e.g. Eket, Lekki, Aba...)"
+          placeholder="Search a location (e.g. Ikeja, Lagos)"
           className="w-full pl-16 pr-12 py-6 bg-white border-2 border-slate-100 rounded-[2rem] shadow-sm focus:ring-8 focus:ring-blue-50 focus:bg-white focus:border-blue-500 outline-none transition-all duration-300 placeholder-slate-400 text-slate-800 font-bold text-lg"
           disabled={isLoading}
         />
@@ -116,18 +116,12 @@ const LocationInput: React.FC<LocationInputProps> = ({ location, setLocation, on
       <button
         onClick={onSummarize}
         disabled={isLoading || !location}
-        className="w-full sm:w-auto h-[76px] px-12 bg-[#000066] text-white font-black uppercase tracking-[0.2em] rounded-[2rem] shadow-2xl shadow-blue-900/30 hover:shadow-blue-900/50 hover:-translate-y-1 active:scale-95 transition-all duration-300 disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none flex items-center justify-center gap-3"
+        className="w-full sm:w-auto h-[76px] px-8 bg-[#000066] text-white font-black uppercase tracking-[0.2em] rounded-[2rem] shadow-2xl shadow-blue-900/30 hover:shadow-blue-900/50 hover:-translate-y-1 active:scale-95 transition-all duration-300 disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none flex items-center justify-center gap-3"
       >
         {isLoading ? (
-          <>
-            <div className="w-5 h-5 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
-            <span>Verifying...</span>
-          </>
+          <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
         ) : (
-          <>
-            <span>Get Intel</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         )}
       </button>
     </div>

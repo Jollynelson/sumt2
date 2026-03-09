@@ -5,7 +5,6 @@ import { summarizeLocationData } from './services/geminiService';
 import LocationInput from './components/LocationInput';
 import SummaryDisplay from './components/SummaryDisplay';
 import LoadingSpinner from './components/LoadingSpinner';
-import VoiceAssistant from './components/VoiceAssistant';
 
 const BetaTenantLogo: React.FC = () => (
   <div className="flex flex-col items-center">
@@ -28,7 +27,7 @@ const BetaTenantLogo: React.FC = () => (
 );
 
 const App: React.FC = () => {
-  const [location, setLocation] = useState<string>('Lagos');
+  const [location, setLocation] = useState<string>('');
   const [summary, setSummary] = useState<Summary | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -114,15 +113,6 @@ const App: React.FC = () => {
                   isLoading={isLoading}
                 />
               </div>
-              <div className="flex-shrink-0">
-                <VoiceAssistant 
-                  location={location} 
-                  onLocationUpdate={(newLoc) => {
-                    setLocation(newLoc);
-                    handleSummarize();
-                  }}
-                />
-              </div>
             </div>
 
             {error && (
@@ -139,7 +129,7 @@ const App: React.FC = () => {
             {!summary && !isLoading && !error && (
                 <div className="text-center text-slate-400 py-16 px-4 border-2 border-dashed border-slate-200 rounded-3xl">
                     <p className="text-5xl mb-4">📍</p>
-                    <p className="text-lg font-medium">Ready to explore? Enter a neighborhood or use Amebo Live to get the latest gist.</p>
+                    <p className="text-lg font-medium">Ready to explore? Enter a neighborhood to get the latest intel.</p>
                 </div>
             )}
           </div>

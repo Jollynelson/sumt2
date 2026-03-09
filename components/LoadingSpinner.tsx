@@ -113,7 +113,6 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ location }) => {
             
             {/* Center Core */}
             <div className="relative z-10 w-12 h-12 bg-[#000066] rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-indigo-900"></div>
               <div className="relative z-10 w-2 h-2 bg-white rounded-full animate-ping"></div>
               
               {/* Scanning Line */}

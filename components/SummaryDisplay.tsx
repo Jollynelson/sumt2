@@ -1,9 +1,8 @@
 
 import React, { useCallback, useState, useEffect, useMemo } from 'react';
-import type { Summary, Sentiment, LocationVibe, WeatherData, SocialTrends, RentersGuide, FeedbackSubmission, NewsArticle, DeepDive, GistAreaVibe } from '../types';
+import type { Summary, Sentiment, LocationVibe, WeatherData, RentersGuide, FeedbackSubmission, NewsArticle, DeepDive, GistAreaVibe } from '../types';
 import ShareIcon from './icons/ShareIcon';
 import WeatherIcon from './icons/WeatherIcon';
-import SocialIcon from './icons/SocialIcon';
 import NewsIcon from './icons/NewsIcon';
 
 interface SummaryDisplayProps {
@@ -58,8 +57,7 @@ const WeatherCard: React.FC<{ weather: WeatherData }> = ({ weather }) => {
   });
 
   return (
-    <div className="bg-[#000066] rounded-3xl p-6 text-white shadow-md flex flex-col space-y-4 relative overflow-hidden">
-      {/* Subtle background timestamp */}
+    <div className="bg-[#000066] rounded-3xl p-6 text-white shadow-sm flex flex-col space-y-4 relative overflow-hidden border border-white/5">
       <div className="absolute top-4 right-6 text-[10px] font-black text-white/20 uppercase tracking-widest">
         {currentDate} • {currentTime}
       </div>
@@ -182,10 +180,9 @@ const GistArea: React.FC<{ vibes: GistAreaVibe[]; location: string }> = ({ vibes
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-[#000066]/80 backdrop-blur-md animate-fade-in">
-          <div className="w-full max-w-4xl bg-[#F8FAFC] rounded-[40px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-[#000066]/90 animate-fade-in">
+          <div className="w-full max-w-4xl bg-white rounded-[40px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-slate-200">
             <div className="bg-[#000066] p-10 text-white flex justify-between items-center relative">
-              <div className="absolute top-0 right-20 bottom-0 w-1/3 bg-white/5 skew-x-12"></div>
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="px-2 py-0.5 bg-orange-500 text-white text-[10px] font-black rounded italic">LIFESTYLE</span>
@@ -285,10 +282,9 @@ const NewsFeed: React.FC<{ news: NewsArticle[]; location: string }> = ({ news, l
 
       {/* Full Gist Notice Board Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-[#000066]/80 backdrop-blur-md animate-fade-in">
-          <div className="w-full max-w-4xl bg-[#F8FAFC] rounded-[40px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-[#000066]/90 animate-fade-in">
+          <div className="w-full max-w-4xl bg-white rounded-[40px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-slate-200">
             <div className="bg-[#000066] p-10 text-white flex justify-between items-center relative">
-              <div className="absolute top-0 right-20 bottom-0 w-1/3 bg-white/5 skew-x-12"></div>
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="px-2 py-0.5 bg-orange-500 text-white text-[10px] font-black rounded italic">EXCLUSIVE</span>
@@ -519,8 +515,7 @@ const RentersGuideCard: React.FC<{ guide: RentersGuide }> = ({ guide }) => (
       </div>
       
       {guide.wittyRemark && (
-        <div className="bg-[#FFF8F5] border-l-8 border-[#FF7043] p-6 rounded-r-3xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-all"></div>
+        <div className="bg-[#FFF8F5] border-l-8 border-[#FF7043] p-6 rounded-r-3xl relative overflow-hidden">
           <p className="text-slate-800 font-black text-lg italic leading-relaxed relative z-10">"{guide.wittyRemark}"</p>
         </div>
       )}
@@ -629,55 +624,6 @@ const RentersGuideCard: React.FC<{ guide: RentersGuide }> = ({ guide }) => (
           <span className="text-[#000066] font-black uppercase tracking-widest text-[10px] block mb-1">Intelligence Conclusion:</span> 
           {guide.livabilityNote}
         </p>
-      </div>
-    </div>
-  </div>
-);
-
-const SocialRadar: React.FC<{ social: SocialTrends }> = ({ social }) => (
-  <div className="bg-[#E0F2FE] rounded-3xl p-4 sm:p-6 h-full relative overflow-hidden group border-none shadow-sm flex flex-col">
-    <div className="absolute top-0 right-0 p-4 opacity-10 rotate-12">
-       <div className="scale-150 text-[#000066]"><SocialIcon /></div>
-    </div>
-    <div className="flex items-center gap-3 mb-5">
-      <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm text-blue-500">
-        <SocialIcon />
-      </div>
-      <h3 className="text-[#000066] text-xs font-black uppercase tracking-widest">Live Pulse</h3>
-    </div>
-    
-    <div className="space-y-5 flex-1">
-      <div>
-        <p className="text-[#000066] text-sm font-bold leading-relaxed relative z-10 mb-3">"{social.topDiscussion}"</p>
-        <div className="flex flex-wrap gap-1.5">
-          {social.hashtags.map((tag, i) => (
-            <span key={i} className="px-2.5 py-1 bg-white rounded-md text-[10px] font-black text-blue-600 uppercase tracking-tighter shadow-sm">#{tag.replace('#','')}</span>
-          ))}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 pt-4 border-t border-blue-200/40">
-        <div>
-           <p className="text-[9px] text-blue-800 font-black uppercase tracking-tighter mb-1.5">Peak Hours</p>
-           <p className="text-[11px] text-[#000066] font-black flex items-center gap-1.5">
-             <span className="text-base">🕒</span> {social.activeTime || 'Evening'}
-           </p>
-        </div>
-        <div>
-           <p className="text-[9px] text-blue-800 font-black uppercase tracking-tighter mb-1.5">Platforms</p>
-           <div className="flex flex-wrap gap-1">
-              {(social.platforms || []).map((p, i) => (
-                <span key={i} className="text-[8px] font-black bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded uppercase">{p}</span>
-              ))}
-           </div>
-        </div>
-      </div>
-
-      <div className="pt-2 mt-auto">
-        <div className="flex justify-between text-[10px] text-blue-800 font-black uppercase mb-1"><span>Vibe Density</span><span>{social.vibeScore}/10</span></div>
-        <div className="w-full bg-white h-2 rounded-full overflow-hidden">
-          <div className="bg-blue-500 h-full" style={{ width: `${social.vibeScore * 10}%` }}></div>
-        </div>
       </div>
     </div>
   </div>
@@ -799,50 +745,6 @@ const FeedbackSection: React.FC<{ location: string, summary: Summary }> = ({ loc
   );
 };
 
-const SocialBuzz: React.FC<{ tweets: Summary['tweets']; location: string }> = ({ tweets, location }) => {
-  if (!tweets || tweets.length === 0) return null;
-
-  return (
-    <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#1DA1F2] rounded-xl flex items-center justify-center text-white">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"></path></svg>
-          </div>
-          <div>
-            <h3 className="text-[#000066] text-xs font-black uppercase tracking-widest">Social Buzz</h3>
-            <p className="text-slate-400 text-[10px] font-bold">REAL-TIME GIST FROM X</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-          <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest">Live</span>
-        </div>
-      </div>
-
-      <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-        {tweets.map((tweet, i) => (
-          <div key={i} className="p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 transition-all group">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-[10px] font-black text-blue-600">
-                {tweet.username[0].toUpperCase()}
-              </div>
-              <span className="text-[11px] font-black text-slate-700 group-hover:text-blue-600 transition-colors">@{tweet.username}</span>
-            </div>
-            <p className="text-xs text-slate-600 leading-relaxed font-medium">{tweet.text}</p>
-          </div>
-        ))}
-      </div>
-      
-      <div className="mt-4 pt-4 border-t border-slate-100">
-        <p className="text-[9px] text-slate-400 font-bold italic">
-          Showing latest tweets mentioning {location}.
-        </p>
-      </div>
-    </div>
-  );
-};
-
 const SummaryDisplay: React.FC<SummaryDisplayProps> = ({ summary, location }) => {
   const handleShare = useCallback((vibe: LocationVibe) => {
     if (!navigator.share) return alert("Sharing is not supported on this browser.");
@@ -851,27 +753,29 @@ const SummaryDisplay: React.FC<SummaryDisplayProps> = ({ summary, location }) =>
 
   return (
     <div className="space-y-8 animate-fade-in">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="space-y-6">
             {summary.weather && <WeatherCard weather={summary.weather} />}
             {summary.gistAreaVibes && summary.gistAreaVibes.length > 0 && <GistArea vibes={summary.gistAreaVibes} location={location} />}
+        </div>
+        <div className="space-y-6">
             {summary.latestNews && summary.latestNews.length > 0 && <NewsFeed news={summary.latestNews} location={location} />}
-            {summary.rentersGuide && <RentersGuideCard guide={summary.rentersGuide} />}
         </div>
-        <div className="lg:col-span-1 h-full space-y-6">
-            {summary.social && <SocialRadar social={summary.social} />}
-        </div>
+      </div>
+
+      <div className="w-full">
+        {summary.rentersGuide && <RentersGuideCard guide={summary.rentersGuide} />}
       </div>
     
       {summary.deepDive && (
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-             <div className="h-full">
+             <div className="flex flex-col">
                 <PowerGrid power={summary.deepDive.power} />
              </div>
-             <div className="h-full">
+             <div className="flex flex-col">
                 <SecurityMatrix security={summary.deepDive.security} />
              </div>
-             <div className="md:col-span-2 lg:col-span-1 h-full">
+             <div className="md:col-span-2 lg:col-span-1 flex flex-col">
                 <TerrainReport infra={summary.deepDive.infrastructure} />
              </div>
          </div>
