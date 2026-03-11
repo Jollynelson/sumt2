@@ -8,21 +8,13 @@ import LoadingSpinner from './components/LoadingSpinner';
 
 const BetaTenantLogo: React.FC = () => (
   <div className="flex flex-col items-center">
-    <div className="relative w-24 h-24 mb-4">
-      {/* The Arch Shape */}
-      <div className="absolute inset-0 bg-[#000066] rounded-t-full border-4 border-[#000066] flex items-center justify-center overflow-hidden">
-        {/* The 4 Colored Squares */}
-        <div className="grid grid-cols-2 gap-1 mt-6">
-          <div className="w-5 h-6 bg-[#D1E9FF] rounded-t-full"></div>
-          <div className="w-5 h-6 bg-white rounded-t-full"></div>
-          <div className="w-5 h-5 bg-[#FF7043] rounded-sm"></div>
-          <div className="w-5 h-5 bg-[#FFC1E3] rounded-sm"></div>
-        </div>
-      </div>
-    </div>
-    <h1 className="text-4xl font-black text-[#000066] tracking-tighter uppercase flex items-center gap-1">
-      BETA TENANT
-    </h1>
+    <img 
+      src="/logo.png
+    " 
+      alt="Beta Tenant Logo" 
+      className="h-20 w-auto mb-2" 
+      referrerPolicy="no-referrer"
+    />
   </div>
 );
 
@@ -97,7 +89,7 @@ const App: React.FC = () => {
       <div className="w-full max-w-7xl mx-auto">
         <div className="bg-white border border-slate-200 rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden">
           <div className="p-4 sm:p-8 space-y-8">
-            <header className="text-center py-4 bg-[#F8FAFC] -mx-8 -mt-8 mb-8 border-b border-slate-100">
+            <header className="text-center py-4 bg-white -mx-8 -mt-8 mb-8 border-b border-slate-100">
               <BetaTenantLogo />
               <p className="text-slate-500 mt-3 font-medium px-4">
                 Real-time neighborhood intelligence for the smart tenant.
