@@ -5,12 +5,11 @@ import { summarizeLocationData } from './services/geminiService';
 import LocationInput from './components/LocationInput';
 import SummaryDisplay from './components/SummaryDisplay';
 import LoadingSpinner from './components/LoadingSpinner';
-import logo from '@/src/assets/logo.png';
 
 const BetaTenantLogo: React.FC = () => (
   <div className="flex flex-col items-center">
     <img 
-      src={logo} 
+      src="/logo.png" 
       alt="Beta Tenant Logo" 
       className="h-20 w-auto mb-2" 
       referrerPolicy="no-referrer"
