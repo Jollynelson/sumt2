@@ -3,7 +3,9 @@
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/server.js" },
     { "source": "/logo.png", "destination": "/logo.png" },
+    { "source": "/logo_blue.png", "destination": "/logo_blue.png" },
+    { "source": "/logo.svg", "destination": "/logo.svg" },
     { "source": "/assets/(.*)", "destination": "/assets/$1" },
-    { "source": "/((?!api/|logo.png|assets/).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|logo.png|logo_blue.png|logo.svg|assets/).*)", "destination": "/index.html" }
   ]
 }

@@ -9,16 +9,10 @@ import LoadingSpinner from './components/LoadingSpinner';
 const BetaTenantLogo: React.FC = () => (
   <div className="flex flex-col items-center">
     <img 
-      src="/logo.png" 
+      src="/logo.svg" 
       alt="Beta Tenant Logo" 
       className="h-20 w-auto mb-2" 
       referrerPolicy="no-referrer"
-      onError={(e) => {
-        const target = e.target as HTMLImageElement;
-        // Prevent infinite loop if the fallback also fails
-        if (target.src.includes('picsum.photos')) return;
-        target.src = "https://picsum.photos/seed/betatenant/200/80";
-      }}
     />
   </div>
 );
