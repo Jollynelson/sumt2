@@ -11,7 +11,7 @@ const BetaTenantLogo: React.FC = () => (
     <img 
       src="/logo.svg" 
       alt="Beta Tenant Logo" 
-      className="h-20 w-auto mb-2" 
+      className="h-32 w-auto mb-2" 
       referrerPolicy="no-referrer"
     />
   </div>
