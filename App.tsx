@@ -9,7 +9,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 const BetaTenantLogo: React.FC = () => (
   <div className="flex flex-col items-center">
     <img 
-      src="/logo.png" 
+      src="/logov2.png" 
       alt="Beta Tenant Logo" 
       className="h-20 w-auto mb-2" 
       referrerPolicy="no-referrer"
