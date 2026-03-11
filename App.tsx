@@ -1,5 +1,6 @@
 
 import React, { useState, useCallback } from 'react';
+import logo from './src/assets/logo.png';
 import type { Summary } from './types';
 import { summarizeLocationData } from './services/geminiService';
 import LocationInput from './components/LocationInput';
@@ -9,7 +10,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 const BetaTenantLogo: React.FC = () => (
   <div className="flex flex-col items-center">
     <img 
-      src="/logo.png" 
+      src={logo} 
       alt="Beta Tenant Logo" 
       className="h-20 w-auto mb-2" 
       referrerPolicy="no-referrer"
