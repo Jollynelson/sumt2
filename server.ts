@@ -198,6 +198,9 @@ app.get("/api/tweets", async (req, res) => {
 
 // Vite middleware for development
 async function setupVite() {
+  console.log(`Setting up Vite. NODE_ENV: ${process.env.NODE_ENV}`);
+  console.log(`__dirname: ${__dirname}`);
+  
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -205,19 +208,19 @@ async function setupVite() {
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static(path.join(__dirname, "dist")));
+    const distPath = path.join(__dirname, "dist");
+    console.log(`Serving static files from: ${distPath}`);
+    app.use(express.static(distPath));
     app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "dist", "index.html"));
+      res.sendFile(path.join(distPath, "index.html"));
     });
   }
 }
 
-if (process.env.NODE_ENV !== "production") {
-  setupVite().then(() => {
-    app.listen(3000, "0.0.0.0", () => {
-      console.log(`Server running on http://localhost:3000`);
-    });
+setupVite().then(() => {
+  app.listen(3000, "0.0.0.0", () => {
+    console.log(`Server running on http://localhost:3000`);
   });
-}
+});
 
 export default app;
