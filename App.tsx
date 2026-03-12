@@ -78,9 +78,8 @@ const App: React.FC = () => {
       <Header />
       <div className="max-w-7xl mx-auto">
         <div className="bg-white border border-slate-200 rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden">
-          <div className="p-4 sm:p-8 space-y-8">
+          <div className="p-4 sm:p-8 space-y-6 sm:space-y-8">
             <div className="text-center space-y-2">
-              <h1 className="text-3xl font-bold text-slate-900">Neighborhood Intelligence</h1>
               <p className="text-slate-500 font-medium">
                 Real-time neighborhood intelligence for the smart tenant.
               </p>

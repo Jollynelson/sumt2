@@ -70,9 +70,9 @@ export const Header: React.FC<HeaderProps> = ({ activeTab = 'area-gist' }) => {
         {/* Hamburger Button (Mobile) */}
         <button 
           onClick={() => setIsMenuOpen(true)}
-          className="md:hidden p-3 rounded-full bg-[#E8EAF0] text-[#000066] hover:bg-[#DDE0E8] transition-colors"
+          className="md:hidden w-10 h-10 pl-[9px] pt-[10px] rounded-full bg-[#E8EAF0] text-[#000066] hover:bg-[#DDE0E8] transition-colors"
         >
-          <Menu size={28} />
+          <Menu size={22} className="-mt-[11px] p-0 m-0" />
         </button>
       </div>
 

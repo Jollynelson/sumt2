@@ -57,27 +57,27 @@ const WeatherCard: React.FC<{ weather: WeatherData }> = ({ weather }) => {
   });
 
   return (
-    <div className="bg-[#000066] rounded-3xl p-6 text-white shadow-sm flex flex-col space-y-4 relative overflow-hidden border border-white/5">
+    <div className="bg-[#000066] rounded-3xl p-5 sm:p-6 text-white shadow-sm flex flex-col space-y-4 relative overflow-hidden border border-white/5">
       <div className="absolute top-4 right-6 text-[10px] font-black text-white/20 uppercase tracking-widest">
         {currentDate} • {currentTime}
       </div>
 
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-5">
-          <div className="bg-white/10 p-4 rounded-2xl"><WeatherIcon /></div>
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+        <div className="flex items-center gap-4 sm:gap-5">
+          <div className="bg-white/10 p-3 sm:p-4 rounded-2xl"><WeatherIcon /></div>
           <div>
-            <div className="text-5xl font-black tracking-tighter">{weather.temperature}°C</div>
-            <div className="text-blue-100 font-bold uppercase text-xs tracking-widest mt-1">{weather.condition}</div>
+            <div className="text-4xl sm:text-5xl font-black tracking-tighter">{weather.temperature}°C</div>
+            <div className="text-blue-100 font-bold uppercase text-[10px] sm:text-xs tracking-widest mt-1">{weather.condition}</div>
           </div>
         </div>
-        <div className="flex gap-8 w-full sm:w-auto justify-between sm:justify-start border-t sm:border-t-0 sm:border-l border-white/10 pt-4 sm:pt-0 sm:pl-8">
+        <div className="flex gap-6 sm:gap-8 w-full sm:w-auto justify-between sm:justify-start border-t sm:border-t-0 sm:border-l border-white/10 pt-4 sm:pt-0 sm:pl-8">
           <div>
-            <div className="text-blue-300 text-[10px] uppercase font-black tracking-widest mb-1">Humidity</div>
-            <div className="text-white font-bold text-lg">{weather.humidity}%</div>
+            <div className="text-blue-300 text-[9px] sm:text-[10px] uppercase font-black tracking-widest mb-1">Humidity</div>
+            <div className="text-white font-bold text-base sm:text-lg">{weather.humidity}%</div>
           </div>
           <div>
-            <div className="text-blue-300 text-[10px] uppercase font-black tracking-widest mb-1">Wind</div>
-            <div className="text-white font-bold text-lg">{weather.wind_speed}km/h</div>
+            <div className="text-blue-300 text-[9px] sm:text-[10px] uppercase font-black tracking-widest mb-1">Wind</div>
+            <div className="text-white font-bold text-base sm:text-lg">{weather.wind_speed}km/h</div>
           </div>
         </div>
       </div>
@@ -180,23 +180,23 @@ const GistArea: React.FC<{ vibes: GistAreaVibe[]; location: string }> = ({ vibes
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-[#000066]/90 animate-fade-in">
-          <div className="w-full max-w-4xl bg-white rounded-[40px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-slate-200">
-            <div className="bg-[#000066] p-10 text-white flex justify-between items-center relative">
+        <div className="fixed inset-0 z-[110] flex justify-center items-start sm:items-center p-4 pt-24 sm:pt-6 bg-[#000066]/90 animate-fade-in overflow-y-auto">
+          <div className="relative w-full max-w-2xl bg-white rounded-[24px] sm:rounded-[32px] shadow-2xl overflow-hidden flex flex-col max-h-[75vh] sm:max-h-[90vh] border border-slate-200 my-auto">
+            <div className="bg-[#000066] p-5 sm:p-8 text-white flex justify-between items-center relative sticky top-0 z-20">
               <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="px-2 py-0.5 bg-orange-500 text-white text-[10px] font-black rounded italic">LIFESTYLE</span>
-                  <h2 className="text-4xl font-black uppercase tracking-tighter italic">Gist Area</h2>
+                <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
+                  <span className="px-1.5 py-0.5 bg-orange-500 text-white text-[8px] sm:text-[10px] font-black rounded italic">LIFESTYLE</span>
+                  <h2 className="text-xl sm:text-3xl font-black uppercase tracking-tighter italic">Gist Area</h2>
                 </div>
-                <p className="text-blue-300 text-sm font-bold uppercase tracking-[0.3em]">ALL VIBES: {location}</p>
+                <p className="text-blue-300 text-[9px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em]">ALL VIBES: {location}</p>
               </div>
-              <button onClick={() => setIsModalOpen(false)} className="relative z-10 p-4 bg-white/10 hover:bg-rose-500 hover:scale-110 rounded-2xl transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              <button onClick={() => setIsModalOpen(false)} className="relative z-10 p-2 sm:p-3 bg-white/10 hover:bg-rose-500 hover:scale-110 rounded-xl transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="sm:w-6 sm:h-6"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
               </button>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-10 space-y-8 bg-slate-50">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-6 bg-slate-50">
+              <div className="grid grid-cols-1 gap-4">
                 {vibes.map((item, i) => {
                   const isPos = item.sentiment === 'Positive';
                   const isNeg = item.sentiment === 'Negative';
@@ -206,20 +206,20 @@ const GistArea: React.FC<{ vibes: GistAreaVibe[]; location: string }> = ({ vibes
                   const pill = isPos ? 'bg-emerald-500' : isNeg ? 'bg-rose-500' : 'bg-slate-500';
 
                   return (
-                    <div key={i} className={`animate-slide-up group p-8 rounded-[32px] border-2 transition-all hover:-translate-y-2 ${bg} ${border} shadow-xl shadow-slate-200/50`}>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-white ${pill}`}>
+                    <div key={i} className={`animate-slide-up group p-4 sm:p-6 rounded-[20px] sm:rounded-[24px] border-2 transition-all hover:shadow-md ${bg} ${border}`}>
+                      <div className="flex items-center justify-between mb-2 sm:mb-3">
+                        <span className={`px-2.5 py-1 rounded-full text-[8px] sm:text-[9px] font-black uppercase tracking-widest text-white ${pill}`}>
                           {item.category}
                         </span>
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-bold text-slate-400">{item.day}</span>
+                          <span className="text-[8px] sm:text-[9px] font-bold text-slate-400">{item.day}</span>
                         </div>
                       </div>
-                      <p className={`text-xl font-black leading-tight mb-4 ${text}`}>{item.title}</p>
-                      <p className="text-sm text-slate-700 mb-6">{item.insight}</p>
-                      <div className="pt-4 border-t border-black/5">
-                        <p className="text-xs font-black text-slate-800 uppercase">Pro Tip:</p>
-                        <p className="text-sm text-slate-600 mt-1">{item.pro_tip}</p>
+                      <p className={`text-base sm:text-lg font-black leading-tight mb-2 sm:mb-3 ${text}`}>{item.title}</p>
+                      <p className="text-xs sm:text-sm text-slate-700 mb-3 sm:mb-4">{item.insight}</p>
+                      <div className="pt-3 border-t border-black/5">
+                        <p className="text-[9px] sm:text-[10px] font-black text-slate-800 uppercase">Pro Tip:</p>
+                        <p className="text-xs text-slate-600 mt-1">{item.pro_tip}</p>
                       </div>
                     </div>
                   );
@@ -282,44 +282,44 @@ const NewsFeed: React.FC<{ news: NewsArticle[]; location: string }> = ({ news, l
 
       {/* Full Gist Notice Board Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-[#000066]/90 animate-fade-in">
-          <div className="w-full max-w-4xl bg-white rounded-[40px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-slate-200">
-            <div className="bg-[#000066] p-10 text-white flex justify-between items-center relative">
+        <div className="fixed inset-0 z-[110] flex justify-center items-start sm:items-center p-4 pt-24 sm:pt-6 bg-[#000066]/90 animate-fade-in overflow-y-auto">
+          <div className="relative w-full max-w-2xl bg-white rounded-[24px] sm:rounded-[32px] shadow-2xl overflow-hidden flex flex-col max-h-[75vh] sm:max-h-[90vh] border border-slate-200 my-auto">
+            <div className="bg-[#000066] p-5 sm:p-8 text-white flex justify-between items-center relative sticky top-0 z-20">
               <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="px-2 py-0.5 bg-orange-500 text-white text-[10px] font-black rounded italic">EXCLUSIVE</span>
-                  <h2 className="text-4xl font-black uppercase tracking-tighter italic">Neighborhood Notice Board</h2>
+                <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
+                  <span className="px-1.5 py-0.5 bg-orange-500 text-white text-[8px] sm:text-[10px] font-black rounded italic">EXCLUSIVE</span>
+                  <h2 className="text-xl sm:text-3xl font-black uppercase tracking-tighter italic">Neighborhood Notice Board</h2>
                 </div>
-                <p className="text-blue-300 text-sm font-bold uppercase tracking-[0.3em]">BETA TENANT GIST HQ: {location}</p>
+                <p className="text-blue-300 text-[9px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em]">BETA TENANT GIST HQ: {location}</p>
               </div>
-              <button onClick={() => setIsModalOpen(false)} className="relative z-10 p-4 bg-white/10 hover:bg-rose-500 hover:scale-110 rounded-2xl transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              <button onClick={() => setIsModalOpen(false)} className="relative z-10 p-2 sm:p-3 bg-white/10 hover:bg-rose-500 hover:scale-110 rounded-xl transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="sm:w-6 sm:h-6"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
               </button>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-10 space-y-8 bg-slate-50">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-6 bg-slate-50">
+              <div className="grid grid-cols-1 gap-4">
                 {news.map((item, i) => {
                   const styles = getCategoryStyles(item.category);
                   return (
-                    <div key={i} className={`animate-slide-up group p-8 rounded-[32px] border-2 transition-all hover:-translate-y-2 ${styles.bg} ${styles.border} shadow-xl shadow-slate-200/50`}>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${styles.pill}`}>
+                    <div key={i} className={`animate-slide-up group p-4 sm:p-6 rounded-[20px] sm:rounded-[24px] border-2 transition-all hover:shadow-md ${styles.bg} ${styles.border}`}>
+                      <div className="flex items-center justify-between mb-2 sm:mb-3">
+                        <span className={`px-2.5 py-1 rounded-full text-[8px] sm:text-[9px] font-black uppercase tracking-widest ${styles.pill}`}>
                           {item.category}
                         </span>
                         <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-slate-300"></span>
-                          <span className="text-[10px] font-bold text-slate-400">{item.timeAgo}</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                          <span className="text-[8px] sm:text-[9px] font-bold text-slate-400">{item.timeAgo}</span>
                         </div>
                       </div>
-                      <p className={`text-xl font-black leading-tight mb-6 ${styles.text}`}>{item.headline}</p>
-                      <div className="flex items-center justify-between pt-6 border-t border-black/5">
+                      <p className={`text-base sm:text-lg font-black leading-tight mb-3 sm:mb-4 ${styles.text}`}>{item.headline}</p>
+                      <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-black/5">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-lg bg-white/50 border border-black/5 flex items-center justify-center text-xs">📰</div>
-                          <span className="text-[10px] font-black uppercase text-slate-500 italic">{item.source}</span>
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-white/50 border border-black/5 flex items-center justify-center text-[10px] sm:text-xs">📰</div>
+                          <span className="text-[8px] sm:text-[9px] font-black uppercase text-slate-500 italic">{item.source}</span>
                         </div>
                         {item.url && (
-                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-white rounded-xl text-[10px] font-black text-blue-600 hover:bg-blue-600 hover:text-white transition-all shadow-sm border border-blue-100">Full Story</a>
+                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 sm:px-4 sm:py-2 bg-white rounded-xl text-[8px] sm:text-[9px] font-black text-blue-600 hover:bg-blue-600 hover:text-white transition-all shadow-sm border border-blue-100">Full Story</a>
                         )}
                       </div>
                     </div>
@@ -328,14 +328,14 @@ const NewsFeed: React.FC<{ news: NewsArticle[]; location: string }> = ({ news, l
               </div>
             </div>
 
-            <div className="p-8 bg-white border-t border-slate-200 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-xl">💡</div>
-                  <p className="text-[11px] font-bold text-slate-500 italic max-w-sm">
+            <div className="p-4 sm:p-6 bg-white border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-slate-100 rounded-xl flex items-center justify-center text-lg">💡</div>
+                  <p className="text-[9px] sm:text-[10px] font-bold text-slate-500 italic max-w-sm">
                     Gist is verified across social media, local news, and community reports in the last 24 hours.
                   </p>
                 </div>
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">BETA TENANT INTEL ENGINE v2.0</p>
+                <p className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest">BETA TENANT INTEL ENGINE v2.0</p>
             </div>
           </div>
         </div>
@@ -345,7 +345,7 @@ const NewsFeed: React.FC<{ news: NewsArticle[]; location: string }> = ({ news, l
 };
 
 const SecurityMatrix: React.FC<{ security: DeepDive['security'] }> = ({ security }) => (
-  <div className="bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm flex flex-col h-full">
+  <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col h-full">
      <div className="flex items-center gap-3 mb-6">
         <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-xl">👮🏽</div>
         <div>
@@ -356,12 +356,12 @@ const SecurityMatrix: React.FC<{ security: DeepDive['security'] }> = ({ security
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-grow">
         <div className="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-4">
-            <h4 className="text-emerald-800 font-black text-[10px] uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+            <h4 className="text-emerald-800 font-black text-[9px] sm:text-[10px] uppercase tracking-[0.2em] mb-3 sm:mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span> Safe Zones
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2 sm:space-y-3">
                 {security.safeZones.length > 0 ? security.safeZones.map((zone, i) => (
-                    <li key={i} className="text-xs font-bold text-emerald-800 flex items-start gap-2 leading-tight">
+                    <li key={i} className="text-[11px] sm:text-xs font-bold text-emerald-800 flex items-start gap-2 leading-tight">
                         <span className="text-emerald-500 flex-shrink-0">✓</span> {zone}
                     </li>
                 )) : <li className="text-xs text-emerald-600/50 italic">No specific data available</li>}
@@ -369,12 +369,12 @@ const SecurityMatrix: React.FC<{ security: DeepDive['security'] }> = ({ security
         </div>
 
         <div className="bg-rose-50/50 border border-rose-100 rounded-2xl p-4">
-             <h4 className="text-rose-800 font-black text-[10px] uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+             <h4 className="text-rose-800 font-black text-[9px] sm:text-[10px] uppercase tracking-[0.2em] mb-3 sm:mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-rose-500"></span> Areas of Concern
             </h4>
-             <ul className="space-y-3">
+             <ul className="space-y-2 sm:space-y-3">
                 {security.concernZones.length > 0 ? security.concernZones.map((zone, i) => (
-                    <li key={i} className="text-xs font-bold text-rose-800 flex items-start gap-2 leading-tight">
+                    <li key={i} className="text-[11px] sm:text-xs font-bold text-rose-800 flex items-start gap-2 leading-tight">
                         <span className="text-rose-500 flex-shrink-0">⚠️</span> {zone}
                     </li>
                 )) : <li className="text-xs text-rose-600/50 italic">No major red flags reported</li>}
@@ -383,7 +383,7 @@ const SecurityMatrix: React.FC<{ security: DeepDive['security'] }> = ({ security
       </div>
       
       <div className="mt-6 pt-4 border-t border-slate-100">
-        <p className="text-slate-500 text-xs font-medium italic">
+        <p className="text-slate-500 text-[11px] sm:text-xs font-medium italic">
             <span className="font-bold text-slate-700 not-italic">💡 Tenant Tip: </span>
             {security.advisory}
         </p>
@@ -392,7 +392,7 @@ const SecurityMatrix: React.FC<{ security: DeepDive['security'] }> = ({ security
 );
 
 const PowerGrid: React.FC<{ power: DeepDive['power'] }> = ({ power }) => (
-    <div className="bg-[#0F172A] text-white rounded-3xl p-4 sm:p-6 shadow-md h-full flex flex-col">
+    <div className="bg-[#0F172A] text-white rounded-3xl p-5 sm:p-6 shadow-md h-full flex flex-col">
         <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center text-xl text-black">⚡</div>
             <div>
@@ -402,20 +402,20 @@ const PowerGrid: React.FC<{ power: DeepDive['power'] }> = ({ power }) => (
         </div>
 
         <div className="mb-6 p-3 bg-white/5 border border-yellow-400/30 rounded-xl">
-            <p className="text-[10px] font-bold text-yellow-400 leading-relaxed">
+            <p className="text-[9px] sm:text-[10px] font-bold text-yellow-400 leading-relaxed">
                {power.gridStability || 'Real-time grid stability data loading...'}
             </p>
         </div>
 
-        <div className="space-y-6 flex-grow">
+        <div className="space-y-5 sm:space-y-6 flex-grow">
             <div>
                 <div className="flex justify-between items-center mb-3">
-                    <span className="text-yellow-400 font-black text-xs uppercase tracking-wider">Band A (20hrs+)</span>
-                    <span className="text-[9px] bg-yellow-400/20 text-yellow-200 px-2 py-0.5 rounded font-black uppercase">Premium</span>
+                    <span className="text-yellow-400 font-black text-[10px] sm:text-xs uppercase tracking-wider">Band A (20hrs+)</span>
+                    <span className="text-[8px] sm:text-[9px] bg-yellow-400/20 text-yellow-200 px-2 py-0.5 rounded font-black uppercase">Premium</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                      {power.bandA.length > 0 ? power.bandA.map((area, i) => (
-                        <span key={i} className="px-3 py-2 bg-white/10 border border-white/5 rounded-xl text-[11px] font-bold text-slate-100 hover:bg-white/20 transition-colors">
+                        <span key={i} className="px-2.5 py-1.5 sm:px-3 sm:py-2 bg-white/10 border border-white/5 rounded-xl text-[10px] sm:text-[11px] font-bold text-slate-100 hover:bg-white/20 transition-colors">
                             {area}
                         </span>
                      )) : <span className="text-xs text-slate-500 italic">None detected</span>}
@@ -426,12 +426,12 @@ const PowerGrid: React.FC<{ power: DeepDive['power'] }> = ({ power }) => (
 
              <div>
                 <div className="flex justify-between items-center mb-3">
-                    <span className="text-slate-400 font-black text-xs uppercase tracking-wider">Band B (16hrs+)</span>
-                    <span className="text-[9px] bg-white/10 text-slate-400 px-2 py-0.5 rounded font-black uppercase">Standard</span>
+                    <span className="text-slate-400 font-black text-[10px] sm:text-xs uppercase tracking-wider">Band B (16hrs+)</span>
+                    <span className="text-[8px] sm:text-[9px] bg-white/10 text-slate-400 px-2 py-0.5 rounded font-black uppercase">Standard</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                      {power.bandB.length > 0 ? power.bandB.map((area, i) => (
-                        <span key={i} className="px-3 py-2 bg-white/5 border border-white/5 rounded-xl text-[11px] font-bold text-slate-400 hover:bg-white/10 transition-colors">
+                        <span key={i} className="px-2.5 py-1.5 sm:px-3 sm:py-2 bg-white/5 border border-white/5 rounded-xl text-[10px] sm:text-[11px] font-bold text-slate-400 hover:bg-white/10 transition-colors">
                             {area}
                         </span>
                      )) : <span className="text-xs text-slate-500 italic">None detected</span>}
@@ -504,109 +504,109 @@ const TerrainReport: React.FC<{ infra: DeepDive['infrastructure'] }> = ({ infra 
 );
 
 const RentersGuideCard: React.FC<{ guide: RentersGuide }> = ({ guide }) => (
-  <div className="bg-white border border-slate-200 rounded-3xl p-4 sm:p-8 shadow-sm space-y-10 h-full">
+  <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-8 shadow-sm space-y-8 sm:space-y-10 h-full">
     <div className="space-y-4">
       <div className="flex items-center gap-3">
-        <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center text-2xl">🏘️</div>
+        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-100 rounded-2xl flex items-center justify-center text-xl sm:text-2xl">🏘️</div>
         <div>
-          <h3 className="text-[#000066] text-sm font-black uppercase tracking-widest">Neighborhood Guide</h3>
-          <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">LIVABILITY REPORT</p>
+          <h3 className="text-[#000066] text-xs sm:text-sm font-black uppercase tracking-widest">Neighborhood Guide</h3>
+          <p className="text-slate-400 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest">LIVABILITY REPORT</p>
         </div>
       </div>
       
       {guide.wittyRemark && (
-        <div className="bg-[#FFF8F5] border-l-8 border-[#FF7043] p-6 rounded-r-3xl relative overflow-hidden">
-          <p className="text-slate-800 font-black text-lg italic leading-relaxed relative z-10">"{guide.wittyRemark}"</p>
+        <div className="bg-[#FFF8F5] border-l-4 sm:border-l-8 border-[#FF7043] p-4 sm:p-6 rounded-r-2xl sm:rounded-r-3xl relative overflow-hidden">
+          <p className="text-slate-800 font-black text-base sm:text-lg italic leading-relaxed relative z-10">"{guide.wittyRemark}"</p>
         </div>
       )}
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
       {/* Green Flags */}
-      <div className="bg-emerald-50 p-6 rounded-3xl border border-emerald-100">
-        <label className="text-[10px] text-emerald-600 uppercase font-black tracking-[0.3em] block mb-4 flex items-center gap-2">
-           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Green Flags
+      <div className="bg-emerald-50 p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-emerald-100">
+        <label className="text-[9px] sm:text-[10px] text-emerald-600 uppercase font-black tracking-[0.2em] sm:tracking-[0.3em] block mb-3 sm:mb-4 flex items-center gap-2">
+           <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-500 animate-pulse"></span> Green Flags
         </label>
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {guide.greenFlags && guide.greenFlags.map((flag, i) => (
-            <div key={i} className="flex items-start gap-3 bg-white/50 p-3 rounded-2xl border border-emerald-200/50">
-              <span className="text-emerald-500 flex-shrink-0 mt-0.5">💎</span>
-              <p className="text-xs font-bold text-emerald-900 leading-snug">{flag}</p>
+            <div key={i} className="flex items-start gap-2 sm:gap-3 bg-white/50 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-emerald-200/50">
+              <span className="text-emerald-500 flex-shrink-0 mt-0.5 text-xs sm:text-sm">💎</span>
+              <p className="text-[11px] sm:text-xs font-bold text-emerald-900 leading-snug">{flag}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Red Flags */}
-      <div className="bg-rose-50 p-6 rounded-3xl border border-rose-100">
-        <label className="text-[10px] text-rose-600 uppercase font-black tracking-[0.3em] block mb-4 flex items-center gap-2">
-           <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span> Red Flags
+      <div className="bg-rose-50 p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-rose-100">
+        <label className="text-[9px] sm:text-[10px] text-rose-600 uppercase font-black tracking-[0.2em] sm:tracking-[0.3em] block mb-3 sm:mb-4 flex items-center gap-2">
+           <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-rose-500 animate-pulse"></span> Red Flags
         </label>
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {guide.redFlags && guide.redFlags.length > 0 ? guide.redFlags.map((flag, i) => (
-            <div key={i} className="flex items-start gap-3 bg-white/50 p-3 rounded-2xl border border-rose-200/50">
-              <span className="text-rose-500 flex-shrink-0 mt-0.5">🚩</span>
-              <p className="text-xs font-bold text-rose-900 leading-snug">{flag}</p>
+            <div key={i} className="flex items-start gap-2 sm:gap-3 bg-white/50 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-rose-200/50">
+              <span className="text-rose-500 flex-shrink-0 mt-0.5 text-xs sm:text-sm">🚩</span>
+              <p className="text-[11px] sm:text-xs font-bold text-rose-900 leading-snug">{flag}</p>
             </div>
           )) : <p className="text-xs text-rose-400 font-medium italic">Scanning for danger... none confirmed yet.</p>}
         </div>
       </div>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="space-y-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+      <div className="space-y-5 sm:space-y-6">
         <div>
-          <label className="text-[10px] text-slate-400 uppercase font-black tracking-widest block mb-3">Est. Annual Rent</label>
-          <div className="border border-slate-200 rounded-[32px] overflow-hidden divide-y divide-slate-100 shadow-xl shadow-slate-200/20">
-             <div className="p-4 flex justify-between items-center bg-slate-50/50">
-                <span className="text-slate-500 text-xs font-bold">Self Con</span>
-                <span className="text-[#000066] font-black text-sm">{guide.rentPrices.selfCon}</span>
+          <label className="text-[9px] sm:text-[10px] text-slate-400 uppercase font-black tracking-widest block mb-2 sm:mb-3">Est. Annual Rent</label>
+          <div className="border border-slate-200 rounded-[24px] sm:rounded-[32px] overflow-hidden divide-y divide-slate-100 shadow-xl shadow-slate-200/20">
+             <div className="p-3 sm:p-4 flex justify-between items-center bg-slate-50/50">
+                <span className="text-slate-500 text-[11px] sm:text-xs font-bold">Self Con</span>
+                <span className="text-[#000066] font-black text-xs sm:text-sm">{guide.rentPrices.selfCon}</span>
              </div>
-             <div className="p-4 flex justify-between items-center bg-white">
-                <span className="text-slate-500 text-xs font-bold">1 Bedroom</span>
-                <span className="text-[#000066] font-black text-sm">{guide.rentPrices.oneBedroom}</span>
+             <div className="p-3 sm:p-4 flex justify-between items-center bg-white">
+                <span className="text-slate-500 text-[11px] sm:text-xs font-bold">1 Bedroom</span>
+                <span className="text-[#000066] font-black text-xs sm:text-sm">{guide.rentPrices.oneBedroom}</span>
              </div>
-             <div className="p-4 flex justify-between items-center bg-slate-50/50">
-                <span className="text-slate-500 text-xs font-bold">2 Bedroom</span>
-                <span className="text-[#000066] font-black text-sm">{guide.rentPrices.twoBedroom}</span>
+             <div className="p-3 sm:p-4 flex justify-between items-center bg-slate-50/50">
+                <span className="text-slate-500 text-[11px] sm:text-xs font-bold">2 Bedroom</span>
+                <span className="text-[#000066] font-black text-xs sm:text-sm">{guide.rentPrices.twoBedroom}</span>
              </div>
-             <div className="p-4 flex justify-between items-center bg-white">
-                <span className="text-slate-500 text-xs font-bold">3 Bedroom+</span>
-                <span className="text-[#000066] font-black text-sm">{guide.rentPrices.threeBedroomPlus}</span>
+             <div className="p-3 sm:p-4 flex justify-between items-center bg-white">
+                <span className="text-slate-500 text-[11px] sm:text-xs font-bold">3 Bedroom+</span>
+                <span className="text-[#000066] font-black text-xs sm:text-sm">{guide.rentPrices.threeBedroomPlus}</span>
              </div>
           </div>
         </div>
 
         <div>
-           <label className="text-[10px] text-slate-400 uppercase font-black tracking-widest block mb-2">Safety Rating</label>
-           <div className={`p-5 rounded-3xl border-l-8 font-black text-lg flex items-center gap-4 shadow-xl shadow-slate-200/20 ${
+           <label className="text-[9px] sm:text-[10px] text-slate-400 uppercase font-black tracking-widest block mb-2">Safety Rating</label>
+           <div className={`p-4 sm:p-5 rounded-2xl sm:rounded-3xl border-l-4 sm:border-l-8 font-black text-base sm:text-lg flex items-center gap-3 sm:gap-4 shadow-xl shadow-slate-200/20 ${
              guide.securityRating.toLowerCase().includes('safe') 
              ? 'bg-emerald-50 border-emerald-500 text-emerald-800' 
              : 'bg-amber-50 border-amber-500 text-amber-800'
            }`}>
-             <span className="text-2xl">🛡️</span> {guide.securityRating}
+             <span className="text-xl sm:text-2xl">🛡️</span> {guide.securityRating}
            </div>
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-5 sm:space-y-6">
         <div>
-          <label className="text-[10px] text-slate-400 uppercase font-black tracking-widest block mb-2">Transport</label>
-          <div className="border border-slate-200 p-6 rounded-[32px] space-y-4 bg-slate-50/30">
-            <div className="flex flex-wrap gap-2 mb-2">
+          <label className="text-[9px] sm:text-[10px] text-slate-400 uppercase font-black tracking-widest block mb-2">Transport</label>
+          <div className="border border-slate-200 p-5 sm:p-6 rounded-[24px] sm:rounded-[32px] space-y-3 sm:space-y-4 bg-slate-50/30">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-1 sm:mb-2">
               {guide.transportation.modes.map((mode, i) => (
-                <span key={i} className="px-3 py-1 bg-white border border-slate-200 rounded-xl text-[10px] font-black text-slate-600 uppercase tracking-tighter">{mode}</span>
+                <span key={i} className="px-2 py-0.5 sm:px-3 sm:py-1 bg-white border border-slate-200 rounded-lg sm:rounded-xl text-[9px] sm:text-[10px] font-black text-slate-600 uppercase tracking-tighter">{mode}</span>
               ))}
             </div>
-            <div className="flex items-center gap-3">
-               <span className="text-[10px] text-slate-400 font-black uppercase">Frequency:</span>
-               <span className="text-[10px] font-black text-[#000066] uppercase tracking-widest bg-blue-100 px-2 py-0.5 rounded-md">{guide.transportation.frequency}</span>
+            <div className="flex items-center gap-2 sm:gap-3">
+               <span className="text-[9px] sm:text-[10px] text-slate-400 font-black uppercase">Frequency:</span>
+               <span className="text-[9px] sm:text-[10px] font-black text-[#000066] uppercase tracking-widest bg-blue-100 px-2 py-0.5 rounded-md">{guide.transportation.frequency}</span>
             </div>
-            <div className="pt-4 border-t border-slate-200">
-              <p className="text-[10px] text-slate-400 font-black uppercase mb-3">Major Routes</p>
-              <div className="flex flex-col gap-2">
+            <div className="pt-3 sm:pt-4 border-t border-slate-200">
+              <p className="text-[9px] sm:text-[10px] text-slate-400 font-black uppercase mb-2 sm:mb-3">Major Routes</p>
+              <div className="flex flex-col gap-1.5 sm:gap-2">
                  {guide.transportation.majorRoutes.map((route, i) => (
-                   <span key={i} className="text-xs text-[#000066] font-black leading-tight flex items-center gap-2">
+                   <span key={i} className="text-[11px] sm:text-xs text-[#000066] font-black leading-tight flex items-center gap-2">
                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span> {route}
                    </span>
                  ))}
@@ -617,11 +617,11 @@ const RentersGuideCard: React.FC<{ guide: RentersGuide }> = ({ guide }) => (
       </div>
     </div>
     
-    <div className="pt-8 border-t border-slate-100">
-      <div className="flex items-start gap-4">
-        <div className="w-10 h-10 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center text-white font-black italic">BT</div>
-        <p className="text-slate-600 text-sm leading-relaxed font-medium">
-          <span className="text-[#000066] font-black uppercase tracking-widest text-[10px] block mb-1">Intelligence Conclusion:</span> 
+    <div className="pt-6 sm:pt-8 border-t border-slate-100">
+      <div className="flex items-start gap-3 sm:gap-4">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center text-white font-black italic text-xs sm:text-base">BT</div>
+        <p className="text-slate-600 text-[13px] sm:text-sm leading-relaxed font-medium">
+          <span className="text-[#000066] font-black uppercase tracking-widest text-[9px] sm:text-[10px] block mb-1">Intelligence Conclusion:</span> 
           {guide.livabilityNote}
         </p>
       </div>
@@ -683,29 +683,29 @@ const FeedbackSection: React.FC<{ location: string, summary: Summary }> = ({ loc
   );
 
   return (
-    <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-4 sm:p-10 shadow-sm">
+    <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-5 sm:p-10 shadow-sm">
       <form onSubmit={handleSubmit} className="space-y-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
           <div className="text-center md:text-left">
-            <h4 className="text-[#000066] font-black text-2xl tracking-tighter uppercase">Neighborhood Intelligence Update</h4>
-            <p className="text-slate-500 text-sm font-medium">Verify the report for <span className="text-[#000066] font-black">{location}</span></p>
+            <h4 className="text-[#000066] font-black text-xl sm:text-2xl tracking-tighter uppercase">Neighborhood Intelligence Update</h4>
+            <p className="text-slate-500 text-xs sm:text-sm font-medium">Verify the report for <span className="text-[#000066] font-black">{location}</span></p>
           </div>
-          <div className="flex gap-3 sm:gap-4 w-full md:w-auto">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full md:w-auto">
             <button 
               type="button"
               disabled={isSubmitting}
               onClick={() => setFeedback(prev => ({ ...prev, rating: 'up' }))} 
-              className={`flex-1 md:flex-none flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-4 border-2 rounded-2xl transition-all font-black uppercase tracking-widest text-xs group ${feedback.rating === 'up' ? 'bg-[#000066] border-[#000066] text-white shadow-xl shadow-blue-900/20' : 'bg-white border-slate-100 text-slate-400 hover:border-[#000066] hover:text-[#000066]'}`}
+              className={`flex-1 flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-8 py-4 border-2 rounded-2xl transition-all font-black uppercase tracking-widest text-[10px] sm:text-xs group ${feedback.rating === 'up' ? 'bg-[#000066] border-[#000066] text-white shadow-xl shadow-blue-900/20' : 'bg-white border-slate-100 text-slate-400 hover:border-[#000066] hover:text-[#000066]'}`}
             >
-              <span className={`text-xl`}>👍</span> Accurate
+              <span className={`text-lg sm:text-xl`}>👍</span> Accurate
             </button>
             <button 
               type="button"
               disabled={isSubmitting}
               onClick={() => setFeedback(prev => ({ ...prev, rating: 'down' }))} 
-              className={`flex-1 md:flex-none flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-4 border-2 rounded-2xl transition-all font-black uppercase tracking-widest text-xs group ${feedback.rating === 'down' ? 'bg-[#FF7043] border-[#FF7043] text-white shadow-xl shadow-orange-900/20' : 'bg-white border-slate-100 text-slate-400 hover:border-[#FF7043] hover:text-[#FF7043]'}`}
+              className={`flex-1 flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-8 py-4 border-2 rounded-2xl transition-all font-black uppercase tracking-widest text-[10px] sm:text-xs group ${feedback.rating === 'down' ? 'bg-[#FF7043] border-[#FF7043] text-white shadow-xl shadow-orange-900/20' : 'bg-white border-slate-100 text-slate-400 hover:border-[#FF7043] hover:text-[#FF7043]'}`}
             >
-              <span className={`text-xl`}>👎</span> Incorrect
+              <span className={`text-lg sm:text-xl`}>👎</span> Incorrect
             </button>
           </div>
         </div>
@@ -786,25 +786,25 @@ const SummaryDisplay: React.FC<SummaryDisplayProps> = ({ summary, location }) =>
         {summary.vibes.map((v, i) => {
           const styles = sentimentStyles[v.mainInsight.sentiment] || sentimentStyles.NEUTRAL;
           return (
-            <div key={i} className={`rounded-3xl p-4 sm:p-6 transition-all hover:shadow-lg border border-slate-200 shadow-sm ${styles.container}`}>
+            <div key={i} className={`rounded-3xl p-5 sm:p-6 transition-all hover:shadow-lg border border-slate-200 shadow-sm ${styles.container}`}>
               <div className="flex justify-between items-start mb-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-2xl border border-slate-100">{v.icon}</div>
-                  <h3 className="text-[#000066] font-black text-lg tracking-tight uppercase">{v.category}</h3>
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-50 rounded-xl flex items-center justify-center text-xl sm:text-2xl border border-slate-100">{v.icon}</div>
+                  <h3 className="text-[#000066] font-black text-base sm:text-lg tracking-tight uppercase">{v.category}</h3>
                 </div>
-                <button onClick={() => handleShare(v)} className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-[#000066] transition-all"><ShareIcon /></button>
+                <button onClick={() => handleShare(v)} className="p-2.5 sm:p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-[#000066] transition-all"><ShareIcon /></button>
               </div>
               
-              <div className="flex flex-col md:flex-row gap-6 items-start">
-                <span className="text-4xl hidden md:block">{v.mainInsight.icon}</span>
-                <div className="space-y-2">
-                  <h4 className="font-bold text-lg text-slate-800">{v.mainInsight.title}</h4>
-                  <p className="text-slate-600 font-medium leading-relaxed">{v.mainInsight.description}</p>
+              <div className="flex flex-col md:flex-row gap-4 sm:gap-6 items-start">
+                <span className="text-3xl sm:text-4xl hidden md:block">{v.mainInsight.icon}</span>
+                <div className="space-y-1.5 sm:space-y-2">
+                  <h4 className="font-bold text-base sm:text-lg text-slate-800">{v.mainInsight.title}</h4>
+                  <p className="text-[13px] sm:text-sm text-slate-600 font-medium leading-relaxed">{v.mainInsight.description}</p>
                 </div>
               </div>
               {v.subInsight && (
-                <div className="mt-5 pl-6 border-l-2 border-slate-200 flex items-center">
-                  <p className="text-xs font-bold text-slate-400 italic tracking-wide">VERIFIED: {v.subInsight.text}</p>
+                <div className="mt-4 sm:mt-5 pl-4 sm:pl-6 border-l-2 border-slate-200 flex items-center">
+                  <p className="text-[10px] sm:text-xs font-bold text-slate-400 italic tracking-wide">VERIFIED: {v.subInsight.text}</p>
                 </div>
               )}
             </div>
