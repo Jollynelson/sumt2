@@ -5,17 +5,7 @@ import { summarizeLocationData } from './services/geminiService';
 import LocationInput from './components/LocationInput';
 import SummaryDisplay from './components/SummaryDisplay';
 import LoadingSpinner from './components/LoadingSpinner';
-
-const BetaTenantLogo: React.FC = () => (
-  <div className="flex flex-col items-center">
-    <img 
-      src="/logo.svg" 
-      alt="Beta Tenant Logo" 
-      className="h-32 w-auto mb-2" 
-      referrerPolicy="no-referrer"
-    />
-  </div>
-);
+import { Header } from './components/Header';
 
 const App: React.FC = () => {
   const [location, setLocation] = useState<string>('');
@@ -84,16 +74,17 @@ const App: React.FC = () => {
   }, [location]);
 
   return (
-    <div className="min-h-screen bg-[#F5F7FA] text-slate-800 font-sans flex items-center justify-center p-4">
-      <div className="w-full max-w-7xl mx-auto">
+    <div className="min-h-screen bg-[#F5F7FA] text-slate-800 font-sans pt-24 md:pt-32 pb-12 px-4">
+      <Header />
+      <div className="max-w-7xl mx-auto">
         <div className="bg-white border border-slate-200 rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden">
           <div className="p-4 sm:p-8 space-y-8">
-            <header className="text-center py-4 bg-white -mx-8 -mt-8 mb-8 border-b border-slate-100">
-              <BetaTenantLogo />
-              <p className="text-slate-500 mt-3 font-medium px-4">
+            <div className="text-center space-y-2">
+              <h1 className="text-3xl font-bold text-slate-900">Neighborhood Intelligence</h1>
+              <p className="text-slate-500 font-medium">
                 Real-time neighborhood intelligence for the smart tenant.
               </p>
-            </header>
+            </div>
 
             <div className="flex flex-col lg:flex-row items-center gap-4">
               <div className="flex-grow w-full">
