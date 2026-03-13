@@ -116,7 +116,7 @@ const App: React.FC = () => {
           </div>
         </div>
         <footer className="mt-8 text-center text-slate-400 text-xs font-bold uppercase tracking-widest">
-          Powered by Beta Tenant Intelligence Engine
+          Powered by Beta Tenant Amebo AI
         </footer>
       </div>
     </div>
