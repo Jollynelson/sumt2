@@ -21,7 +21,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab = 'area-gist' }) => {
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-white border-b border-slate-100 z-50 h-20 md:h-24 flex items-center">
-      <div className="max-w-7xl mx-auto px-4 w-full flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 w-full flex items-center justify-between text-[14px] leading-[22px]">
         {/* Left: Logo */}
         <div className="flex-shrink-0">
           <BetaTenantLogo />
@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab = 'area-gist' }) => {
         <nav className="hidden md:flex items-center gap-8">
           <a 
             href="/" 
-            className={`font-semibold text-lg relative py-2 transition-colors ${
+            className={`font-bold text-[15px] leading-[25px] relative py-2 transition-colors ${
               activeTab === 'area-gist' 
                 ? "text-[#000066] after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#000066] after:rounded-full" 
                 : "text-slate-500 hover:text-[#000066]"
@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab = 'area-gist' }) => {
           </a>
           <a 
             href="https://betatenant.com/report/search" 
-            className={`font-semibold text-lg transition-colors ${
+            className={`font-semibold text-[15px] leading-[25px] transition-colors ${
               activeTab === 'report-agent'
                 ? "text-[#000066] after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#000066] after:rounded-full"
                 : "text-slate-500 hover:text-[#000066]"
@@ -55,13 +55,13 @@ export const Header: React.FC<HeaderProps> = ({ activeTab = 'area-gist' }) => {
         <div className="hidden md:flex items-center gap-4">
           <a 
             href="https://betatenant.com/login" 
-            className="px-8 py-3 rounded-full bg-[#E8EAF0] text-[#000066] font-bold hover:bg-[#DDE0E8] transition-colors"
+            className="px-6 py-2 rounded-full bg-[#E8EAF0] text-[#000066] font-bold hover:bg-[#DDE0E8] transition-colors"
           >
             Sign in
           </a>
           <a 
             href="https://betatenant.com/signup" 
-            className="px-8 py-3 rounded-full bg-[#000066] text-white font-bold hover:bg-[#000044] transition-colors shadow-lg shadow-blue-900/20"
+            className="px-6 py-2 rounded-full bg-[#000066] text-white font-bold hover:bg-[#000044] transition-colors shadow-lg shadow-blue-900/20"
           >
             Sign up
           </a>
@@ -93,7 +93,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab = 'area-gist' }) => {
             <a 
               href="/" 
               onClick={() => setIsMenuOpen(false)}
-              className="flex items-center gap-4 text-xl font-semibold text-slate-700 hover:text-[#000066] transition-colors"
+              className="flex items-center gap-4 text-xl font-semibold text-slate-700 hover:text-[#000066] transition-colors w-[500px] h-[20px]"
             >
               <MapPin className="text-slate-400" size={24} />
               Area Gist
